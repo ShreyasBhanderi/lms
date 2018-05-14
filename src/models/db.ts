@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 
 const db = new Sequelize('lms', 'jarvis', 'ultron', {
     host: 'localhost',
-    dialect: 'mysql',
+    dialect: 'postgres',
     pool: {
         min: 0,
         max: 5,

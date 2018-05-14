@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importDefault(require("sequelize"));
 const db = new sequelize_1.default('lms', 'jarvis', 'ultron', {
     host: 'localhost',
-    dialect: 'mysql',
+    dialect: 'postgres',
     pool: {
         min: 0,
         max: 5,
