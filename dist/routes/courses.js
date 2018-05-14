@@ -62,8 +62,13 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name"] })
+                    .then(data => {
                     res.status(200).json(data);
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -97,6 +102,9 @@ class CourseRouter {
                 .then(obj => {
                 data.addBatch(obj);
                 res.status(500).json({ obj });
+            })
+                .catch(error => {
+                res.status(500).json({ error });
             });
         })
             .catch(error => {
@@ -126,8 +134,13 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     res.status(200).json(data.filter(x => x.id == req.params.id2));
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -163,11 +176,19 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data
                         .filter(x => x.id == req.params.id2)[0]
                         .getLecture()
-                        .then(data => res.status(200).json(data));
+                        .then(data => res.status(200).json(data))
+                        .catch(error => {
+                        res.status(500).json({ error });
+                    });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -184,11 +205,19 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data
                         .filter(x => x.id == req.params.id2)[0]
                         .getLecture()
-                        .then(data => res.status(200).json(data.filter(x => x.id == req.params.id3)));
+                        .then(data => res.status(200).json(data.filter(x => x.id == req.params.id3)))
+                        .catch(error => {
+                        res.status(500).json({ error });
+                    });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -205,12 +234,24 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
-                    data.getLecture({ attributes: ["name", "id"] }).then(data => {
-                        data.setLectures(data.filter(x => x.name != req.body.name));
-                        res.status(200).json(data.filter(x => x.name != req.body.name));
+                    data
+                        .getLecture({ attributes: ["name", "id"] })
+                        .then(obj => {
+                        data.setLectures(obj.filter(x => x.name != req.body.name));
+                        res
+                            .status(200)
+                            .json(obj.filter(x => x.name != req.body.name));
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -227,12 +268,24 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
-                    data.getTeacher({ attributes: ["name", "id"] }).then(data => {
-                        data.setTeachers(data.filter(x => x.name != req.body.name));
-                        res.status(200).json(data.filter(x => x.name != req.body.name));
+                    data
+                        .getTeacher({ attributes: ["name", "id"] })
+                        .then(obj => {
+                        data.setTeachers(obj.filter(x => x.name != req.body.name));
+                        res
+                            .status(200)
+                            .json(obj.filter(x => x.name != req.body.name));
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -249,12 +302,24 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
-                    data.getStudent({ attributes: ["name", "id"] }).then(obj => {
+                    data
+                        .getStudent({ attributes: ["name", "id"] })
+                        .then(obj => {
                         data.setStudent(obj.filter(x => x.name != req.body.name));
-                        res.status(200).json(obj.filter(x => x.name != req.body.name));
+                        res
+                            .status(200)
+                            .json(obj.filter(x => x.name != req.body.name));
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -271,7 +336,9 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
                     lecture_1.default.findOne({
                         where: {
@@ -291,7 +358,13 @@ class CourseRouter {
                         .then(obj => {
                         data.addLecture(obj);
                         res.status(500).json({ obj });
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -308,7 +381,9 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
                     Student_1.default.findOne({
                         where: {
@@ -328,7 +403,13 @@ class CourseRouter {
                         .then(obj => {
                         data.addStudent(obj);
                         res.status(500).json({ obj });
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -345,7 +426,9 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data = data.filter(x => x.id == req.params.id2)[0];
                     teacher_1.default.findOne({
                         where: {
@@ -362,10 +445,19 @@ class CourseRouter {
                             return teacher_1.default.create({ name: req.body.name });
                         }
                     })
+                        .catch(error => {
+                        res.status(500).json({ error });
+                    })
                         .then(obj => {
                         data.addTeacher(obj);
                         res.status(500).json({ obj });
+                    })
+                        .catch(error => {
+                        res.status(500).json({ error });
                     });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -382,11 +474,19 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data
                         .filter(x => x.id == req.params.id2)[0]
                         .getStudent()
-                        .then(data => res.status(200).json(data));
+                        .then(data => res.status(200).json(data))
+                        .catch(error => {
+                        res.status(500).json({ error });
+                    });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
@@ -403,11 +503,19 @@ class CourseRouter {
         })
             .then(data => {
             {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
+                data
+                    .getBatch({ attributes: ["name", "id"] })
+                    .then(data => {
                     data
                         .filter(x => x.id == req.params.id2)[0]
                         .getTeacher()
-                        .then(data => res.status(200).json(data));
+                        .then(data => res.status(200).json(data))
+                        .catch(error => {
+                        res.status(500).json({ error });
+                    });
+                })
+                    .catch(error => {
+                    res.status(500).json({ error });
                 });
             }
         })
