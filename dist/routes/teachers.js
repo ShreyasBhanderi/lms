@@ -74,8 +74,10 @@ class TeacherRouter {
     }
     create(req, res) {
         const name = req.body.name;
+        const teacherId = req.body.teacherId;
         const course = new teacher_1.default({
-            name
+            name,
+            teacherId
         });
         course.save()
             .then((data) => {

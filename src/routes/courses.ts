@@ -589,7 +589,7 @@ class CourseRouter {
     this.router.get("/:id1/batches/:id2/lectures", this.lectures);
     this.router.post("/:id1/batches/:id2/lectures", this.addLecture);
     this.router.delete("/:id1/batches/:id2/lectures", this.deleteLecture);
-    this.router.get("/:id1/batches/:id2lectures/id3", this.oneLecture);
+    this.router.get("/:id1/batches/:id2/lectures/id3", this.oneLecture);
 
     this.router.get("/:id1/batches/:id2/students", this.students);
     this.router.post("/:id1/batches/:id2/students", this.addStudent);

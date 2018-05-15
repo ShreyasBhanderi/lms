@@ -5,5 +5,14 @@
     <body>
         <h1>Shreyas Bhanderi</h1>
         <h1>shreyas.bhanderi@nagarro.com</h1>
-    </body>
+        <h2>Following calls have Get, Post, Put and Delete methods</h2>
+    </br> /api/courses, /api/subjects, /api/students, /api/teachers
+</br> add id to link to get or delete entity of that id (ex :- https://learning-man-sys.herokuapp.com/api/courses/1 )
+</br><h2> Other rest calls have Get, Post and Delete methods</h2>
+</br> If you call delete method on this links then it will only delete relation between those entities
+</br> for example https://learning-man-sys.herokuapp.com/api/courses/1/batches (name of batch as body) will delte relation between that batch and course
+</br> Post method creates relation between entities or if in above exapmle batch with given name doesn't exist than on applying post</br>
+method on that link will first create batch with that name and than add relation between batch and course( same for all other links)
+
+</body>
 </html>

@@ -84,7 +84,7 @@ class SubjectRouter {
   
     public create(req: Request, res: Response): void {
       const name: string = req.body.name;
-  
+
       const course = new Subject({
         name
       });

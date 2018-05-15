@@ -63,7 +63,7 @@ class CourseRouter {
             .then(data => {
             {
                 data
-                    .getBatch({ attributes: ["name"] })
+                    .getBatch({ attributes: ["name","id"] })
                     .then(data => {
                     res.status(200).json(data);
                 })
@@ -92,11 +92,11 @@ class CourseRouter {
                 .then(function (obj) {
                 if (obj) {
                     // update
-                    return obj.update({ name: req.body.name });
+                    return obj.update({ name: req.body.name, courseId :id });
                 }
                 else {
                     // insert
-                    return batch_2.default.create({ name: req.body.name });
+                    return batch_2.default.create({ name: req.body.name, courseId :id });
                 }
             })
                 .then(obj => {
@@ -149,17 +149,18 @@ class CourseRouter {
         });
     }
     deleteBatch(req, res) {
-        const id = req.params.id1;
+        const id = req.params.id;
         course_1.default.findOne({
             where: {
                 id: id
             }
         })
             .then(data => {
-            {
-                data.getBatch({ attributes: ["name", "id"] }).then(data => {
-                    data.setBatch(data.filter(x => x.name != req.body.name));
-                    res.status(200).json(data.filter(x => x.name != req.body.name));
+            {   
+
+                data.getBatch().then(obj => {
+                    data.setBatch(obj.filter(x => x.name != req.body.name));
+                    res.status(200).json(obj.filter(x => x.name != req.body.name));
                 });
             }
         })
@@ -175,25 +176,25 @@ class CourseRouter {
             }
         })
             .then(data => {
-            {
+            
                 data
                     .getBatch({ attributes: ["name", "id"] })
                     .then(data => {
-                    data
+                   data =  data
                         .filter(x => x.id == req.params.id2)[0]
-                        .getLecture()
+                        data.getLecture()
                         .then(data => res.status(200).json(data))
                         .catch(error => {
-                        res.status(500).json({ error });
+                        res.status(500).json("error 1");
                     });
                 })
                     .catch(error => {
-                    res.status(500).json({ error });
+                    res.status(500).json("error 2");
                 });
-            }
+            
         })
             .catch(error => {
-            res.status(500).json({ error });
+            res.status(500).json("error 3");
         });
     }
     oneLecture(req, res) {
@@ -241,17 +242,17 @@ class CourseRouter {
                     data
                         .getLecture({ attributes: ["name", "id"] })
                         .then(obj => {
-                        data.setLectures(obj.filter(x => x.name != req.body.name));
+                        data.setLecture(obj.filter(x => x.name != req.body.name));
                         res
                             .status(200)
                             .json(obj.filter(x => x.name != req.body.name));
                     })
                         .catch(error => {
-                        res.status(500).json({ error });
+                        res.status(500).json("error 2");
                     });
                 })
                     .catch(error => {
-                    res.status(500).json({ error });
+                    res.status(500).json("error 3");
                 });
             }
         })
@@ -348,11 +349,11 @@ class CourseRouter {
                         .then(function (obj) {
                         if (obj) {
                             // update
-                            return obj.update({ name: req.body.name });
+                            return obj.update({ name: req.body.name, subjectId: req.body.subjectId, teacherId: req.body.teacherId });
                         }
                         else {
                             // insert
-                            return lecture_1.default.create({ name: req.body.name });
+                            return lecture_1.default.create({ name: req.body.name, subjectId: req.body.subjectId, teacherId: req.body.teacherId });
                         }
                     })
                         .then(obj => {
@@ -477,9 +478,9 @@ class CourseRouter {
                 data
                     .getBatch({ attributes: ["name", "id"] })
                     .then(data => {
-                    data
+                    data=data
                         .filter(x => x.id == req.params.id2)[0]
-                        .getStudent()
+                        data.getStudent()
                         .then(data => res.status(200).json(data))
                         .catch(error => {
                         res.status(500).json({ error });
@@ -551,7 +552,7 @@ class CourseRouter {
         this.router.get("/:id1/batches/:id2/lectures", this.lectures);
         this.router.post("/:id1/batches/:id2/lectures", this.addLecture);
         this.router.delete("/:id1/batches/:id2/lectures", this.deleteLecture);
-        this.router.get("/:id1/batches/:id2lectures/id3", this.oneLecture);
+        this.router.get("/:id1/batches/:id2/lectures/:id3", this.oneLecture);
         this.router.get("/:id1/batches/:id2/students", this.students);
         this.router.post("/:id1/batches/:id2/students", this.addStudent);
         this.router.delete("/:id1/batches/:id2/students", this.deleteStudent);
